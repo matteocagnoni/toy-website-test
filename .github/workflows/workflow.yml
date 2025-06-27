@@ -35,6 +35,7 @@ jobs:
     - uses: azure/arm-deploy@v1
       name: Run preflight validation
       with:
+        scope: resourcegroup
         deploymentName: ${{ github.run_number }}
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
         template: ./deploy/main.bicep
@@ -50,12 +51,13 @@ jobs:
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - uses: azure/arm-deploy@v1
       name: Deploy website
       with:
+        scope: resourcegroup
         failOnStdErr: false
         deploymentName: ${{ github.run_number }}
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
         template: ./deploy/main.bicep
+        parameters: environmentType=${{ env.ENVIRONMENT_TYPE }}
         parameters: environmentType=${{ env.ENVIRONMENT_TYPE }}
