@@ -14,6 +14,7 @@ permissions:
 env:
   AZURE_RESOURCEGROUP_NAME: ToyWebsiteTest
   ENVIRONMENT_TYPE: Test
+  ENVIRONMENT_LOCATION: westus3  
 
 jobs:
   lint:
@@ -39,7 +40,7 @@ jobs:
         deploymentName: ${{ github.run_number }}
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
         template: ./deploy/main.bicep
-        parameters: environmentType=${{ env.ENVIRONMENT_TYPE }} location=westus3
+        parameters: environmentType=${{ env.ENVIRONMENT_TYPE }} location= {{env.ENVIRONMENT_LOCATION}}
         deploymentMode: Validate
   deploy:
     runs-on: ubuntu-latest
